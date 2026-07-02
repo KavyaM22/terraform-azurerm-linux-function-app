@@ -1,18 +1,29 @@
+variable "environment" {
+  description = "Environment"
+  type        = string
+}
+
+variable "project_name" {
+  description = "Project name"
+  type        = string
+}
+
 variable "resource_group_name" {
-  description = "Existing Resource Group name"
+  description = "Existing Resource Group"
   type        = string
 }
 
 variable "location" {
-  description = "Azure region"
+  description = "Azure Region"
   type        = string
 }
 
 variable "tags" {
-  description = "Tags applied to all resources"
-  type        = map(string)
+  type = map(string)
 
   default = {
-    ManagedBy = "Terraform"
+    Environment = "Dev"
+    ManagedBy   = "Terraform"
+    Project     = "FunctionApp"
   }
 }
