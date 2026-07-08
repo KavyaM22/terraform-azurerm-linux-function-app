@@ -31,6 +31,20 @@ module "app_service_plan" {
   tags = var.tags
 }
 
+module "sql_server" {
+
+  source = "./modules/sql_server"
+
+  environment       = var.environment
+  project_name      = var.project_name
+  resource_group_name = var.resource_group_name
+  location          = var.location
+
+  sql_admin_password = var.sql_admin_password
+
+  tags = var.tags
+}
+
 module "application_insights" {
   source = "./modules/application_insights"
 

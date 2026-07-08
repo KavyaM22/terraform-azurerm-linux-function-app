@@ -48,3 +48,20 @@ output "app_service_plan_name" {
 output "app_service_plan_id" {
   value = module.app_service_plan.id
 }
+
+#SQL DB
+output "sql_server_name" {
+  value = module.sql_server.sql_server_name
+}
+
+output "sql_database_name" {
+  value = module.sql_server.sql_database_name
+}
+
+output "sql_server_id" {
+  value = module.sql_server.sql_server_id
+}
+
+output "sql_database_id" {
+  value = module.sql_server.sql_database_id
+}

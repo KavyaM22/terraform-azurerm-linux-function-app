@@ -1,5 +1,5 @@
 variable "environment" {
-  description = "Environment"
+  description = "Environment name"
   type        = string
 }
 
@@ -9,7 +9,7 @@ variable "project_name" {
 }
 
 variable "resource_group_name" {
-  description = "Existing Resource Group"
+  description = "Resource Group name"
   type        = string
 }
 
@@ -18,17 +18,22 @@ variable "location" {
   type        = string
 }
 
+variable "sql_admin_username" {
+  description = "SQL Administrator username"
+  type        = string
+  default     = "sqladmin"
+}
+
 variable "sql_admin_password" {
-  description = "SQL Admin Password"
+  description = "SQL Administrator password"
   type        = string
   sensitive   = true
 }
 
 variable "tags" {
+  description = "Tags"
+
   type = map(string)
 
-  default = {
-    Environment = "Dev"
-    ManagedBy   = "Terraform"
-  }
+  default = {}
 }
