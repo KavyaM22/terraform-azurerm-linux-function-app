@@ -1,5 +1,5 @@
 variable "environment" {
-  description = "Environment"
+  description = "Environment name (dev, dev2, pre, prod)"
   type        = string
 }
 
@@ -19,10 +19,9 @@ variable "location" {
 }
 
 variable "tags" {
+  description = "Tags applied to Log Analytics Workspace"
+
   type = map(string)
 
-  default = {
-    Environment = "Dev"
-    ManagedBy   = "Terraform"
-  }
+  default = {}
 }

@@ -1,5 +1,10 @@
-variable "storage_account_name" {
-  description = "Storage Account name"
+variable "environment" {
+  description = "Environment"
+  type        = string
+}
+
+variable "project_name" {
+  description = "Project name"
   type        = string
 }
 
