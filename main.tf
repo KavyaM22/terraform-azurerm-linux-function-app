@@ -31,9 +31,9 @@ module "app_service_plan" {
   tags = var.tags
 }
 
-module "sql_server" {
+module "sql_db" {
 
-  source = "./modules/sql_server"
+  source = "./modules/sql_db"
 
   environment       = var.environment
   project_name      = var.project_name
