@@ -4,12 +4,12 @@ variable "environment" {
 }
 
 variable "project_name" {
-  description = "Project name"
+  description = "Project Name"
   type        = string
 }
 
 variable "resource_group_name" {
-  description = "Existing Resource Group"
+  description = "Resource Group"
   type        = string
 }
 
@@ -18,22 +18,15 @@ variable "location" {
   type        = string
 }
 
-variable "sql_admin_password" {
-  description = "SQL Admin Password"
-  type        = string
-  sensitive   = true
-}
-
 variable "tenant_id" {
   description = "Microsoft Entra Tenant ID"
   type        = string
 }
 
 variable "tags" {
+
   type = map(string)
 
-  default = {
-    Environment = "Dev"
-    ManagedBy   = "Terraform"
-  }
+  default = {}
+
 }

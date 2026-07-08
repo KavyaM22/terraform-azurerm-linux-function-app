@@ -65,3 +65,33 @@ output "sql_server_id" {
 output "sql_database_id" {
   value = module.sql_server.sql_database_id
 }
+
+# Function App
+output "function_app_name" {
+  value = module.function_app.name
+}
+
+output "function_app_id" {
+  value = module.function_app.id
+}
+
+output "function_app_principal_id" {
+  value = module.function_app.principal_id
+}
+
+output "function_app_hostname" {
+  value = module.function_app.default_hostname
+}
+
+# Key Vault
+output "key_vault_name" {
+  value = module.key_vault.name
+}
+
+output "key_vault_id" {
+  value = module.key_vault.id
+}
+
+output "key_vault_uri" {
+  value = module.key_vault.vault_uri
+}

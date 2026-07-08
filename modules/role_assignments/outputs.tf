@@ -1,0 +1,11 @@
+output "storage_blob_role_assignment_id" {
+  value = azurerm_role_assignment.storage_blob_data_contributor.id
+}
+
+output "key_vault_role_assignment_id" {
+  value = try(azurerm_role_assignment.key_vault_secrets_user[0].id, null)
+}
+
+output "monitoring_reader_role_assignment_id" {
+  value = try(azurerm_role_assignment.monitoring_reader[0].id, null)
+}
