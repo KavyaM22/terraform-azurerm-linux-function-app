@@ -22,3 +22,11 @@ output "primary_connection_strings" {
     key => account.primary_connection_string
   }
 }
+
+output "primary_access_keys" {
+  sensitive = true
+  value = {
+    for key, account in azurerm_storage_account.this :
+    key => account.primary_access_key
+  }
+}
