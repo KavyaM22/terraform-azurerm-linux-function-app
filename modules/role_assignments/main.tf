@@ -7,7 +7,6 @@ resource "azurerm_role_assignment" "storage_blob_data_contributor" {
 
 # Key Vault
 resource "azurerm_role_assignment" "key_vault_secrets_user" {
-  count = var.key_vault_id == null ? 0 : 1
   scope = var.key_vault_id
   role_definition_name = "Key Vault Secrets User"
   principal_id = var.function_principal_id
