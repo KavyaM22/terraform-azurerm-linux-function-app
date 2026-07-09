@@ -15,7 +15,6 @@ resource "azurerm_role_assignment" "key_vault_secrets_user" {
 
 # Log Analytics
 resource "azurerm_role_assignment" "monitoring_reader" {
-  count = var.log_analytics_workspace_id == null ? 0 : 1
   scope = var.log_analytics_workspace_id
   role_definition_name = "Monitoring Reader"
   principal_id = var.function_principal_id
