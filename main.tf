@@ -3,7 +3,7 @@ module "storage_account" {
   tags = var.tags
   storage_accounts = {
     0 = {
-      name = "devfpstorage"
+      name = "devfpsa001"
       resource_group_name = "Terraform"
       location = "Australia East"
       account_tier = "Standard"
@@ -114,10 +114,10 @@ module "synapse" {
   tags = var.tags
   synapse_workspaces = {
     0 = {
-      name = "devfpsynw"
+      name = "devfpsynw001"
       resource_group_name = "Terraform"
       location = "Australia East"
-      storage_data_lake_gen2_filesystem_id = module.storage_account.storage_container_ids["0"]
+      storage_data_lake_gen2_filesystem_id = module.storage_account.filesystem_ids["0"]
       sql_administrator_login = var.sql_admin_username
       sql_administrator_login_password = var.sql_admin_password
       managed_virtual_network_enabled = true
