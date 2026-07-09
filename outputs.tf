@@ -1,14 +1,14 @@
 # Storage Account
-output "storage_account_name" {
-  value = module.storage_account.storage_account_name
+output "storage_account_names" {
+  value = module.storage_account.storage_account_names
 }
 
-output "storage_account_id" {
-  value = module.storage_account.storage_account_id
+output "storage_account_ids" {
+  value = module.storage_account.storage_account_ids
 }
 
-output "storage_connection_string" {
-  value     = module.storage_account.primary_connection_string
+output "storage_connection_strings" {
+  value     = module.storage_account.primary_connection_strings
   sensitive = true
 }
 

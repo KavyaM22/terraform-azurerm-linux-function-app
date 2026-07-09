@@ -1,20 +1,56 @@
 resource "azurerm_storage_account" "this" {
-  name                = local.storage_account_name        
-  resource_group_name = var.resource_group_name        
-  location            = var.location                    
-  account_tier             = "Standard"                  # Performance tier: Standard (HDD, cheaper) vs Premium (SSD, faster)
-  account_replication_type = "LRS"                       # How data is copied for redundancy — LRS = 3 copies in one datacenter
-  account_kind = "StorageV2"                             # General-purpose v2 account — supports blobs, files, queues, tables
-  access_tier = "Hot"                                    # Optimized for frequently accessed data (costs more to store, cheaper to access)
-  https_traffic_only_enabled = true                      # Blocks plain HTTP — only encrypted HTTPS connections allowed
-  min_tls_version = "TLS1_2"                              # Rejects old, insecure TLS versions — only TLS 1.2+ allowed
-  public_network_access_enabled = true                   # Storage account can be reached over the public internet
-  allow_nested_items_to_be_public = false                # Prevents any container/blob inside from ever being made publicly readable
-  tags = var.tags                                        # Custom labels for organizing
+
+  for_each = var.storage_accounts
+
+  # Storage Account name (must be globally unique)
+  name = local.storage_account_names[each.key]
+
+  # Resource Group
+  resource_group_name = var.resource_group_name
+
+  # Azure Region
+  location = var.location
+
+  # Performance Tier
+  account_tier = each.value.account_tier
+
+  # Replication Type (LRS/ZRS/GRS/RAGRS/etc.)
+  account_replication_type = each.value.account_replication_type
+
+  # StorageV2 / BlobStorage / FileStorage
+  account_kind = each.value.account_kind
+
+  # Hot / Cool
+  access_tier = each.value.access_tier
+
+  # Allow only HTTPS traffic
+  https_traffic_only_enabled = each.value.https_traffic_only_enabled
+
+  # Minimum TLS version
+  min_tls_version = each.value.min_tls_version
+
+  # Public Internet access
+  public_network_access_enabled = each.value.public_network_access_enabled
+
+  # Prevent public blob/container access
+  allow_nested_items_to_be_public = each.value.allow_nested_items_to_be_public
+
+  # Merge common tags with account-specific tags
+  tags = merge(var.tags, each.value.tags)
+
 }
 
-resource "azurerm_storage_container" "function_code" {
-  name                  = var.container_name             
-  storage_account_id    = azurerm_storage_account.this.id # Links this container to the storage account created above
-  container_access_type = "private"                      # No anonymous access — requires authentication (keys/SAS) to read/write
+resource "azurerm_storage_container" "this" {
+
+  for_each = var.storage_accounts
+
+  # Blob Container name
+  name = each.value.container_name
+
+  # Parent Storage Account
+  storage_account_id = azurerm_storage_account.this[each.key].id
+
+  # No anonymous access
+  container_access_type = "private"
+
 }
