@@ -60,8 +60,8 @@ module "function_app" {
   location            = var.location
 
   service_plan_id = module.app_service_plan.id
-  storage_account_name = module.storage_account.storage_account_name
-  storage_account_access_key = module.storage_account.primary_access_key
+  storage_account_name = module.storage_account.storage_account_name["function"]
+  storage_account_access_key = module.storage_account.primary_access_key["function"]
   application_insights_connection_string = module.application_insights.connection_string
   application_insights_instrumentation_key = module.application_insights.instrumentation_key
 
@@ -85,7 +85,7 @@ module "application_insights" {
 module "role_assignments" {
   source = "./modules/role_assignments"
   function_principal_id = module.function_app.principal_id
-  storage_account_id = module.storage_account.storage_account_id
+  storage_account_id = module.storage_account.storage_account_id["function"]
   key_vault_id = module.key_vault.id
   log_analytics_workspace_id = module.log_analytics.id
 }
