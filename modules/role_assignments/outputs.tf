@@ -3,9 +3,9 @@ output "storage_blob_role_assignment_id" {
 }
 
 output "key_vault_role_assignment_id" {
-  value = try(azurerm_role_assignment.key_vault_secrets_user[0].id, null)
+  value = azurerm_role_assignment.key_vault_secrets_user.id
 }
 
 output "monitoring_reader_role_assignment_id" {
-  value = try(azurerm_role_assignment.monitoring_reader[0].id, null)
+  value = azurerm_role_assignment.monitoring_reader.id
 }
