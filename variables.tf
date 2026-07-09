@@ -24,6 +24,11 @@ variable "sql_admin_password" {
   sensitive   = true
 }
 
+variable "sql_admin_username" {
+  description = "SQL Server administrator username"
+  type        = string
+}
+
 variable "tenant_id" {
   description = "Microsoft Entra Tenant ID"
   type        = string
