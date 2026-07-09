@@ -3,18 +3,19 @@ module "storage_account" {
   tags = var.tags
   storage_accounts = {
     0 = {
-      name = "devfpsa"
+      name = "devfpstorage"
       resource_group_name = "Terraform"
       location = "Australia East"
       account_tier = "Standard"
       account_replication_type = "LRS"
       account_kind = "StorageV2"
       access_tier = "Hot"
+      is_hns_enabled = true
       https_traffic_only_enabled = true
       min_tls_version = "TLS1_2"
       public_network_access_enabled = true
       allow_nested_items_to_be_public = false
-      container_name = "transient"
+      filesystem_name = "synapse"
     }
   }
 }
@@ -106,4 +107,25 @@ module "key_vault" {
   location            = var.location
   tenant_id           = var.tenant_id
   tags                = var.tags
+}
+
+module "synapse" {
+  source = "./modules/synapse"
+  tags = var.tags
+  synapse_workspaces = {
+    0 = {
+      name = "devfpsynw"
+      resource_group_name = "Terraform"
+      location = "Australia East"
+      storage_data_lake_gen2_filesystem_id = module.storage_account.storage_container_ids["0"]
+      sql_administrator_login = var.sql_admin_username
+      sql_administrator_login_password = var.sql_admin_password
+      managed_virtual_network_enabled = true
+      public_network_access_enabled = true
+      data_exfiltration_protection_enabled = false
+
+    }
+
+  }
+
 }

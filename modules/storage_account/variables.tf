@@ -18,6 +18,7 @@ variable "storage_accounts" {
     min_tls_version = string
     public_network_access_enabled = bool
     allow_nested_items_to_be_public = bool
-    container_name = string
+    is_hns_enabled = bool
+    filesystem_name = string
   }))
 }

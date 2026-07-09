@@ -30,3 +30,17 @@ output "primary_access_keys" {
     key => account.primary_access_key
   }
 }
+
+output "filesystem_ids" {
+  value = {
+    for key, filesystem in azurerm_storage_data_lake_gen2_filesystem.this :
+    key => filesystem.id
+  }
+}
+
+output "filesystem_names" {
+  value = {
+    for key, filesystem in azurerm_storage_data_lake_gen2_filesystem.this :
+    key => filesystem.name
+  }
+}
