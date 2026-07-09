@@ -51,19 +51,19 @@ output "app_service_plan_id" {
 
 #SQL DB
 output "sql_server_name" {
-  value = module.sql_server.sql_server_name
+  value = module.sql_db.sql_server_name
 }
 
 output "sql_database_name" {
-  value = module.sql_server.sql_database_name
+  value = module.sql_db.sql_database_name
 }
 
 output "sql_server_id" {
-  value = module.sql_server.sql_server_id
+  value = module.sql_db.sql_server_id
 }
 
 output "sql_database_id" {
-  value = module.sql_server.sql_database_id
+  value = module.sql_db.sql_database_id
 }
 
 # Function App
