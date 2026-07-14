@@ -30,10 +30,14 @@ variable "sql_admin_password" {
   sensitive   = true
 }
 
+variable "public_network_access_enabled" {
+  description = "Allow public access to the SQL Server"
+  type        = bool
+  default     = true
+}
+
 variable "tags" {
   description = "Tags"
-
   type = map(string)
-
   default = {}
 }

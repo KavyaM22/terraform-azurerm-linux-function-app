@@ -123,9 +123,20 @@ module "synapse" {
       managed_virtual_network_enabled = true
       public_network_access_enabled = true
       data_exfiltration_protection_enabled = false
-
     }
-
   }
+}
 
+module "data_factory" {
+  source = "./modules/data_factory"
+  tags = var.tags
+  data_factories = {
+    0 = {
+      name = "devfpadf"
+      resource_group_name = "Terraform"
+      location = "Australia East"
+      public_network_enabled = true
+      managed_virtual_network_enabled = false
+    }
+  }
 }
