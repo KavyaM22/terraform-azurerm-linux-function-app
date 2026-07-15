@@ -18,3 +18,12 @@ output "workspace_connectivity_endpoints" {
     key => workspace.connectivity_endpoints
   }
 }
+
+output "principal_ids" {
+  description = "Synapse Workspace Managed Identity Principal IDs"
+
+  value = {
+    for key, workspace in azurerm_synapse_workspace.this :
+    key => workspace.identity[0].principal_id
+  }
+}

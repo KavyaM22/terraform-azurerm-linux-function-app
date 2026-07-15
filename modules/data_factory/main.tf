@@ -6,7 +6,12 @@ resource "azurerm_data_factory" "this" {
   public_network_enabled = each.value.public_network_enabled
   managed_virtual_network_enabled = each.value.managed_virtual_network_enabled
   tags = var.tags
-
+  
+  # Creates a managed identity for the Azure Data Factory, allowing it to securely access Azure resources without storing credentials.
+  identity {
+    type = "SystemAssigned"
+  }
+  
   dynamic "github_configuration" {
     for_each = each.value.github_configuration == null ? [] : [each.value.github_configuration]
 

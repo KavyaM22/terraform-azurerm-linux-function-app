@@ -28,5 +28,10 @@ resource "azurerm_synapse_workspace" "this" {
   # Data Exfiltration Protection
   data_exfiltration_protection_enabled = each.value.data_exfiltration_protection_enabled
 
+  # Creates a managed identity for the Azure Synapse Analytics, allowing it to securely access Azure resources without storing credentials.
+  identity {
+    type = "SystemAssigned"
+  }
+
   tags = var.tags
 }

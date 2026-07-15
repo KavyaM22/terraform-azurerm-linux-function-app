@@ -1,21 +1,21 @@
 module "storage_account" {
   source = "./modules/storage_account"
-  tags = var.tags
+  tags   = var.tags
   storage_accounts = {
     0 = {
-      name = "devfpsa001"
-      resource_group_name = "Terraform"
-      location = "Australia East"
-      account_tier = "Standard"
-      account_replication_type = "LRS"
-      account_kind = "StorageV2"
-      access_tier = "Hot"
-      is_hns_enabled = true
-      https_traffic_only_enabled = true
-      min_tls_version = "TLS1_2"
-      public_network_access_enabled = true
+      name                            = "devfpsa001"
+      resource_group_name             = "Terraform"
+      location                        = "Australia East"
+      account_tier                    = "Standard"
+      account_replication_type        = "LRS"
+      account_kind                    = "StorageV2"
+      access_tier                     = "Hot"
+      is_hns_enabled                  = true
+      https_traffic_only_enabled      = true
+      min_tls_version                 = "TLS1_2"
+      public_network_access_enabled   = true
       allow_nested_items_to_be_public = false
-      filesystem_name = "synapse"
+      filesystem_name                 = "synapse"
     }
   }
 }
@@ -92,11 +92,19 @@ module "application_insights" {
 }
 
 module "role_assignments" {
-  source                     = "./modules/role_assignments"
-  function_principal_id      = module.function_app.principal_id
+  source = "./modules/role_assignments"
+
+  # Resource IDs
   storage_account_id         = module.storage_account.storage_account_ids["0"]
   key_vault_id               = module.key_vault.id
   log_analytics_workspace_id = module.log_analytics.id
+
+  # Managed Identities that need access
+  principal_ids = {
+    function = module.function_app.principal_id
+    adf      = module.data_factory.principal_ids["0"]
+    synapse  = module.synapse.principal_ids["0"]
+  }
 }
 
 module "key_vault" {
@@ -111,17 +119,17 @@ module "key_vault" {
 
 module "synapse" {
   source = "./modules/synapse"
-  tags = var.tags
+  tags   = var.tags
   synapse_workspaces = {
     0 = {
-      name = "devfpsynw001"
-      resource_group_name = "Terraform"
-      location = "Australia East"
+      name                                 = "devfpsynw001"
+      resource_group_name                  = "Terraform"
+      location                             = "Australia East"
       storage_data_lake_gen2_filesystem_id = module.storage_account.filesystem_ids["0"]
-      sql_administrator_login = var.sql_admin_username
-      sql_administrator_login_password = var.sql_admin_password
-      managed_virtual_network_enabled = true
-      public_network_access_enabled = true
+      sql_administrator_login              = var.sql_admin_username
+      sql_administrator_login_password     = var.sql_admin_password
+      managed_virtual_network_enabled      = true
+      public_network_access_enabled        = true
       data_exfiltration_protection_enabled = false
     }
   }
@@ -134,11 +142,11 @@ module "data_factory" {
 
   data_factories = {
     0 = {
-      name                             = "devfpadf"
-      resource_group_name              = "Terraform"
-      location                         = "Australia East"
-      public_network_enabled           = true
-      managed_virtual_network_enabled  = false
+      name                            = "devfpadf"
+      resource_group_name             = "Terraform"
+      location                        = "Australia East"
+      public_network_enabled          = true
+      managed_virtual_network_enabled = false
 
       github_configuration = {
         account_name    = "KavyaM22"

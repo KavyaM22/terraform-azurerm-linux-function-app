@@ -1,8 +1,3 @@
-variable "function_principal_id" {
-  description = "Managed Identity Principal ID of the Function App"
-  type        = string
-}
-
 variable "storage_account_id" {
   description = "Storage Account Resource ID"
   type        = string
@@ -18,4 +13,10 @@ variable "log_analytics_workspace_id" {
   description = "Log Analytics Workspace Resource ID"
   type        = string
   default     = null
+}
+
+variable "principal_ids" {
+  description = "Managed Identity Principal IDs"
+  type = map(string)
+
 }
