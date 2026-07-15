@@ -129,14 +129,24 @@ module "synapse" {
 
 module "data_factory" {
   source = "./modules/data_factory"
+
   tags = var.tags
+
   data_factories = {
     0 = {
-      name = "devfpadf"
-      resource_group_name = "Terraform"
-      location = "Australia East"
-      public_network_enabled = true
-      managed_virtual_network_enabled = false
+      name                             = "devfpadf"
+      resource_group_name              = "Terraform"
+      location                         = "Australia East"
+      public_network_enabled           = true
+      managed_virtual_network_enabled  = false
+
+      github_configuration = {
+        account_name    = "KavyaM22"
+        branch_name     = "main"
+        git_url         = "https://github.com"
+        repository_name = "adf-pipelines"
+        root_folder     = "/"
+      }
     }
   }
 }
