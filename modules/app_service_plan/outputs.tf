@@ -7,3 +7,7 @@ output "name" {
   description = "App Service Plan Name"
   value       = azurerm_service_plan.this.name
 }
+
+output "service_plan" {
+  value = azurerm_service_plan.this
+}
